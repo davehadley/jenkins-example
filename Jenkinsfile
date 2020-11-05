@@ -64,11 +64,26 @@ pipeline {
                 '''
             }
         }
-        stage('Deploy') {
+        stage('Dist') {
             steps {
                 echo 'Deploying'
+                sh '''#!/usr/bin/env bash
+                 source $WORKSPACE/miniconda/bin/activate
+                 conda activate $WORKSPACE/conda-env
+                 poetry build
+                 '''
             }
         }
+        // stage('Publish') {
+        //     steps {
+        //         echo 'Publish'
+        //          '''#!/usr/bin/env bash
+        //          source $WORKSPACE/miniconda/bin/activate
+        //          conda activate $WORKSPACE/conda-env
+        //          poetry publish
+        //          '''
+        //     }
+        // }
     }
     post {
         always {
