@@ -52,6 +52,16 @@ pipeline {
                 '''
             }
         }
+        stage('Lint') {
+            steps {
+                echo 'Linting'
+                sh '''#!/usr/bin/env bash
+                source $WORKSPACE/miniconda/bin/activate
+                conda activate $WORKSPACE/conda-env
+                black --check .
+                '''
+            }
+        }
         stage('Deploy') {
             steps {
                 echo 'Deploying'
