@@ -29,7 +29,7 @@ pipeline {
                 sh '''#!/usr/bin/env bash
                 source $WORKSPACE/miniconda/bin/activate
                 conda activate $WORKSPACE/conda-env
-                poetry install
+                python -m poetry install
                 '''
             }
         }
@@ -39,7 +39,7 @@ pipeline {
                 sh '''#!/usr/bin/env bash
                 source $WORKSPACE/miniconda/bin/activate
                 conda activate $WORKSPACE/conda-env
-                poetry run pytest tests
+                python -m poetry run pytest tests
                 '''
             }
         }
