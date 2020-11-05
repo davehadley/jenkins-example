@@ -11,8 +11,8 @@ pipeline {
                     source $WORKSPACE/miniconda/bin/activate
                     conda config --set always_yes yes
                     conda update -q conda
-                    conda env create -n $WORKSPACE -f environment.yaml
-                    conda activate $WORKSPACE
+                    conda env create -n conda-env -f environment.yaml --prefix $WORKSPACE/conda-env
+                    conda activate $WORKSPACE/conda-env
                     echo --- Environment Variables
                     env
                     echo --- Python Packages
