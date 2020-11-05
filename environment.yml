@@ -1,6 +1,7 @@
 name: example-jenkins
 channels:
   - defaults
+  - conda-forge
 dependencies:
   - python=3.8
-  - poetry>=1.0
+  - poetry>=1.1
