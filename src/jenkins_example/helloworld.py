@@ -1,2 +1,2 @@
 def helloworld() -> str:
-    return "Hello World"
+    return "Hello World!"
