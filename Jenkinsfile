@@ -110,9 +110,11 @@ pipeline {
         }
         success {
             echo 'This will run only if successful'
+            githubNotify description: 'Jenkins Build Success',  status: 'SUCCESS'
         }
         failure {
             echo 'This will run only if failed'
+            githubNotify description: 'Jenkins Build Failure',  status: 'FAILURE'
         }
         unstable {
             echo 'This will run only if the run was marked as unstable'
