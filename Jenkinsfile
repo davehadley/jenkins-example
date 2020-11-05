@@ -6,13 +6,16 @@ pipeline {
             steps {
                 echo 'Building'
                 sh '''#!/usr/bin/env bash
-                    wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -nv -O miniconda.sh
-                    bash miniconda.sh -b -p $WORKSPACE/miniconda
-                    source $WORKSPACE/miniconda/bin/activate
-                    conda config --set always_yes yes
-                    conda update -q conda
-                    conda env create -n conda-env -f environment.yaml --prefix $WORKSPACE/conda-env
-                    conda activate $WORKSPACE/conda-env
+                    # echo Install Conda
+                    # wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -nv -O miniconda.sh
+                    # bash miniconda.sh -b -p $WORKSPACE/miniconda
+                    # source $WORKSPACE/miniconda/bin/activate
+                    # conda config --set always_yes yes
+                    # conda update -q conda
+                    # conda env create -n conda-env -f environment.yaml --prefix $WORKSPACE/conda-env
+                    # conda activate $WORKSPACE/conda-env
+                    echo --- Install Poetry
+                    curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
                     echo --- Environment Variables
                     env
                     echo --- Python Packages
@@ -27,9 +30,10 @@ pipeline {
             steps {
                 echo 'Build'
                 sh '''#!/usr/bin/env bash
-                source $WORKSPACE/miniconda/bin/activate
-                conda activate $WORKSPACE/conda-env
-                python -m poetry install
+                # source $WORKSPACE/miniconda/bin/activate
+                # conda activate $WORKSPACE/conda-env
+                poetry --version
+                poetry install
                 '''
             }
         }
@@ -37,9 +41,9 @@ pipeline {
             steps {
                 echo 'Testing'
                 sh '''#!/usr/bin/env bash
-                source $WORKSPACE/miniconda/bin/activate
-                conda activate $WORKSPACE/conda-env
-                python -m poetry run pytest tests
+                # source $WORKSPACE/miniconda/bin/activate
+                # conda activate $WORKSPACE/conda-env
+                poetry run pytest tests
                 '''
             }
         }
