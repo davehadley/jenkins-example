@@ -5,6 +5,22 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building'
+                sh '''#!/usr/bin/env bash
+                    wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -nv -O miniconda.sh
+                    bash miniconda.sh -b -p $WORKSPACE/miniconda
+                    source $WORKSPACE/miniconda/bin/activate
+                    conda config --set always_yes yes
+                    conda update -q conda
+                    conda env create -n $WORKSPACE -f environment.yaml
+                    conda activate $WORKSPACE
+                    echo --- Environment Variables
+                    env
+                    echo --- Python Packages
+                    which pip
+                    which python
+                    pip list
+                    '''
+                
             }
         }
         stage('Test') {
