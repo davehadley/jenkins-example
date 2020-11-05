@@ -53,15 +53,34 @@ pipeline {
             }
         }
         stage('Lint') {
-            steps {
-                echo 'Linting'
-                sh '''#!/usr/bin/env bash
-                source $WORKSPACE/miniconda/bin/activate
-                conda activate $WORKSPACE/conda-env
-                poetry run black --check src tests
-                poetry run mypy src tests
-                poetry run flake8 src tests
-                '''
+            stages {
+                stage('Black') {
+                    steps {
+                        sh '''#!/usr/bin/env bash
+                        source $WORKSPACE/miniconda/bin/activate
+                        conda activate $WORKSPACE/conda-env
+                        poetry run black --check src tests
+                        '''
+                    }
+                }
+                stage('MyPy') {
+                    steps {
+                        sh '''#!/usr/bin/env bash
+                        source $WORKSPACE/miniconda/bin/activate
+                        conda activate $WORKSPACE/conda-env
+                        poetry run mypy src tests
+                        '''
+                    }
+                }
+                stage('Flake8') {
+                    steps {
+                        sh '''#!/usr/bin/env bash
+                        source $WORKSPACE/miniconda/bin/activate
+                        conda activate $WORKSPACE/conda-env
+                        poetry run flake8 src tests
+                        '''
+                    }
+                }
             }
         }
         stage('Dist') {
