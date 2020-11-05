@@ -27,6 +27,7 @@ pipeline {
             steps {
                 echo 'Build'
                 sh '''#!/usr/bin/env bash
+                source $WORKSPACE/miniconda/bin/activate
                 conda activate $WORKSPACE/conda-env
                 poetry install
                 '''
@@ -36,6 +37,7 @@ pipeline {
             steps {
                 echo 'Testing'
                 sh '''#!/usr/bin/env bash
+                source $WORKSPACE/miniconda/bin/activate
                 conda activate $WORKSPACE/conda-env
                 poetry run pytest tests
                 '''
