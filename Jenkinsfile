@@ -4,23 +4,29 @@ pipeline {
     stages {
         stage('Setup') {
             steps {
-                echo 'Building'
+                echo 'Setup'
                 sh '''#!/usr/bin/env bash
-                    echo Install Conda
+                    echo --- Environment
+                    echo Working Directory: $(pwd)
+                    echo Directory contents:
+                    ls
+                    echo --- Install Conda
                     wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -nv -O miniconda.sh
                     bash miniconda.sh -b -p $WORKSPACE/miniconda
                     source $WORKSPACE/miniconda/bin/activate
                     conda config --set always_yes yes
                     conda update -q conda
-                    conda env create -n conda-env -f environment.yaml --prefix $WORKSPACE/conda-env
+                    conda env create -f environment.yml --prefix $WORKSPACE/conda-env
                     conda activate $WORKSPACE/conda-env
-                    echo --- Install Poetry
-                    curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+                    # echo --- Install Poetry
+                    # curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
                     echo --- Environment Variables
                     env
                     echo --- Python Packages
-                    which pip
-                    which python
+                    echo pip = $(which pip)
+                    echo python = $(which python)
+                    echo poetry = $(which poetry)
+                    echo conda = $(which conda)
                     pip list
                     '''
                 
@@ -32,7 +38,6 @@ pipeline {
                 sh '''#!/usr/bin/env bash
                 source $WORKSPACE/miniconda/bin/activate
                 conda activate $WORKSPACE/conda-env
-                poetry --version
                 poetry install --no-root
                 '''
             }
