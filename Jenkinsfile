@@ -30,10 +30,10 @@ pipeline {
             steps {
                 echo 'Build'
                 sh '''#!/usr/bin/env bash
-                # source $WORKSPACE/miniconda/bin/activate
-                # conda activate $WORKSPACE/conda-env
+                source $WORKSPACE/miniconda/bin/activate
+                conda activate $WORKSPACE/conda-env
                 poetry --version
-                poetry install
+                poetry install --no-root
                 '''
             }
         }
@@ -41,8 +41,8 @@ pipeline {
             steps {
                 echo 'Testing'
                 sh '''#!/usr/bin/env bash
-                # source $WORKSPACE/miniconda/bin/activate
-                # conda activate $WORKSPACE/conda-env
+                source $WORKSPACE/miniconda/bin/activate
+                conda activate $WORKSPACE/conda-env
                 poetry run pytest tests
                 '''
             }
