@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Setup') {
             steps {
                 echo 'Building'
                 sh '''#!/usr/bin/env bash
@@ -23,9 +23,22 @@ pipeline {
                 
             }
         }
+        stage('Build') {
+            steps {
+                echo 'Build'
+                sh '''#!/usr/bin/env bash
+                conda activate $WORKSPACE/conda-env
+                poetry install
+                '''
+            }
+        }
         stage('Test') {
             steps {
                 echo 'Testing'
+                sh '''#!/usr/bin/env bash
+                conda activate $WORKSPACE/conda-env
+                poetry run pytest tests
+                '''
             }
         }
         stage('Deploy') {
