@@ -6,14 +6,14 @@ pipeline {
             steps {
                 echo 'Building'
                 sh '''#!/usr/bin/env bash
-                    # echo Install Conda
-                    # wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -nv -O miniconda.sh
-                    # bash miniconda.sh -b -p $WORKSPACE/miniconda
-                    # source $WORKSPACE/miniconda/bin/activate
-                    # conda config --set always_yes yes
-                    # conda update -q conda
-                    # conda env create -n conda-env -f environment.yaml --prefix $WORKSPACE/conda-env
-                    # conda activate $WORKSPACE/conda-env
+                    echo Install Conda
+                    wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -nv -O miniconda.sh
+                    bash miniconda.sh -b -p $WORKSPACE/miniconda
+                    source $WORKSPACE/miniconda/bin/activate
+                    conda config --set always_yes yes
+                    conda update -q conda
+                    conda env create -n conda-env -f environment.yaml --prefix $WORKSPACE/conda-env
+                    conda activate $WORKSPACE/conda-env
                     echo --- Install Poetry
                     curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
                     echo --- Environment Variables
