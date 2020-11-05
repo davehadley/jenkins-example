@@ -38,7 +38,7 @@ pipeline {
                 sh '''#!/usr/bin/env bash
                 source $WORKSPACE/miniconda/bin/activate
                 conda activate $WORKSPACE/conda-env
-                poetry install --no-root
+                poetry install
                 '''
             }
         }
