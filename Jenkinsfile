@@ -58,7 +58,7 @@ pipeline {
                 sh '''#!/usr/bin/env bash
                 source $WORKSPACE/miniconda/bin/activate
                 conda activate $WORKSPACE/conda-env
-                black --check .
+                black --check src tests
                 '''
             }
         }
