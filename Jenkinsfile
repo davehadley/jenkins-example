@@ -106,22 +106,20 @@ pipeline {
     }
     post {
         always {
-            echo 'This will always run'
+            echo 'Build completed'
         }
         success {
-            echo 'This will run only if successful'
-            githubNotify description: 'Jenkins Build Success',  status: 'SUCCESS'
+            echo 'Build was successful'
+            cleanWs()
         }
         failure {
-            echo 'This will run only if failed'
-            githubNotify description: 'Jenkins Build Failure',  status: 'FAILURE'
+            echo 'Build failed'
         }
         unstable {
-            echo 'This will run only if the run was marked as unstable'
+            echo 'Build unstable'
         }
         changed {
-            echo 'This will run only if the state of the Pipeline has changed'
-            echo 'For example, if the Pipeline was previously failing but is now successful'
+            echo 'Build status changed'
         }
     }
 }
