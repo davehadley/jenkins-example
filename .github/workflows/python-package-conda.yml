@@ -18,6 +18,8 @@ jobs:
       run: |
         # $CONDA is an environment variable pointing to the root of the miniconda directory
         $CONDA/bin/conda env update --file environment.yml --name base
+    - name: Build
+      run: poetry install
     - name: Lint with flake8
       run: |
         $CONDA/bin/conda install flake8
@@ -27,5 +29,4 @@ jobs:
         $CONDA/bin/flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        conda install pytest
-        $CONDA/bin/pytest
+        poetry run pytest 
