@@ -1,5 +1,5 @@
 # test-jenkins : Package to Test Jenkins
 
-[![Build Status](https://borag.lnx.warwick.ac.uk/jenkins/buildStatus/icon?job=jenkins-example%2Fmaster)](https://borag.lnx.warwick.ac.uk/jenkins/job/jenkins-example/job/master/)
-
+[![Jenkins Build Status](https://borag.lnx.warwick.ac.uk/jenkins/buildStatus/icon?job=jenkins-example%2Fmaster)](https://borag.lnx.warwick.ac.uk/jenkins/job/jenkins-example/job/master/)
+![Github Build Stats](https://img.shields.io/github/workflow/status/davehadley/jenkins-example/ci)
 A package to test the Jenkins server at <https://borag.lnx.warwick.ac.uk/jenkins>.
